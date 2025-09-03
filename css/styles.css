@@ -5,7 +5,7 @@ body
 	font-family: 'Roboto', san-serif;
 }
 
-#title 
+.title 
 {
     font-size: 40px;
     width: 100%;
