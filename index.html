@@ -1,22 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
 <html>
-<head>
-	<title>COP 4331 LAMP Stack Demo</title>
-	<script type="text/javascript" src="js/md5.js"></script>
-	<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
-    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Manager</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  
+  <body>
+      <h1 class="title">Contact Manager </h1>
+      <!-- Login -->
+      <div id="login">
+      	<span id="inner-title">PLEASE LOG IN</span> <br>
+      	<input type="text" id="loginName" placeholder="Username" /><br>
+      	<input type="password" id="loginPassword" placeholder="Password"/><br>
+      	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Login </button>
+      	<span id="loginResult"></span>
 
-<h1 id="title">COP 4331 LAMP Stack Demo</h1>
-
-<div id="loginDiv">
-	<span id="inner-title">PLEASE LOG IN</span>
-	<input type="text" id="loginName" placeholder="Username" /><br />
-	<input type="password" id="loginPassword" placeholder="Password"/><br />
-	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Do It </button>
-	<span id="loginResult"></span>
-</div>
-
-</body>
+        	<!-- Registration -->
+        	<div class="register">
+        		<p>Don't have an account?</p>
+        		<button type="button" class="buttons"> Create Account </button>
+        </div>
+      </div>
+  </body>
 </html>
