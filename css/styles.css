@@ -1,6 +1,6 @@
 body 
 {
-    background-color: #FAF9F6;
+  background-image: linear-gradient(to bottom, #E5F3FD, #46A2DA);
 	padding: 25px;
 	font-family: 'Roboto', san-serif;
 }
@@ -12,16 +12,15 @@ body
     margin: 2% 5%;
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    color: #5C6AC4;
+    color: #000352;
 }
 
-#loginDiv
+.input-login
 {
     font-size: 30px;
     width: 70%;
     margin-left: 15%;
     padding: 25px;
-    background-color: #b2b2b2;
 }
 
 #loggedInDiv
@@ -74,6 +73,11 @@ body
 	font-size: 30px;
 }
 
+.input
+{
+  font-size: 30px;
+}
+
 input[type="text"],input[type="password"]{
     border-radius: 25px;
     text-align: center;
@@ -83,7 +87,7 @@ input[type="text"],input[type="password"]{
     font-family: 'Roboto', sans-serif;
 }
 
-#inner-title{
+.inner-title{
     display: inline-block;
     font-size: 0.8em;
     width: 90%;
@@ -91,7 +95,7 @@ input[type="text"],input[type="password"]{
     margin-left: 5%;
     margin-bottom: 2%;
     font-family: 'Roboto', sans-serif;
-    color: #95060a;
+    color: #000352;
 }
 
 #loginResult{
