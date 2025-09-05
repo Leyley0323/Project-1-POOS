@@ -1,4 +1,7 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 // Start PHP script - this file handles user registration (creating new accounts)
 
 	// Get JSON data sent from JavaScript (via AJAX POST request)
@@ -51,7 +54,7 @@
 			
 			// STEP 2: Insert new user into database
 			// Prepare SQL statement to insert new user record
-			$stmt = $conn->prepare("INSERT INTO Users (firstName, lastName, Login, Password) VALUES(?,?,?,?)");
+			$stmt = $conn->prepare("INSERT INTO Users (FirstName, LastName, Login, Password) VALUES(?,?,?,?)");
 			
 			// Bind all the user data to the placeholders
 			// "ssss" means all 4 parameters are strings
