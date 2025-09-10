@@ -1,8 +1,10 @@
 body 
 {
-  background-image: linear-gradient(to bottom, #E5F3FD, #46A2DA);
-	padding: 25px;
-	font-family: 'Roboto', san-serif;
+    background-image: linear-gradient(to bottom, #E5F3FD, #46A2DA);
+    background-attachment: fixed; 
+    min-height: 100vh;
+    padding: 25px;
+    font-family: 'Roboto', sans-serif;
 }
 
 .title 
@@ -87,7 +89,7 @@ body
   font-family: 'Roboto', sans-serif;
 }
 
-input[type="text"],input[type="password"]{
+input[type="text"],input[type="password"],input[type="tel"],input[type="email"],input[type="date"]{
     border-radius: 25px;
     text-align: center;
     width: 80%;
@@ -103,6 +105,17 @@ input[type="text"],input[type="password"]{
     text-align: center;
     margin-left: 5%;
     margin-bottom: 2%;
+    font-family: 'Roboto', sans-serif;
+    color: #000352;
+}
+
+.register-title{
+    display: inline-block;
+    font-size: 1.5em;
+    width: 90%;
+    text-align: center;
+    margin-left: 7%;
+    margin-bottom: 4%;
     font-family: 'Roboto', sans-serif;
     color: #000352;
 }
@@ -174,7 +187,7 @@ select{
         
 #toggleContactFormButton {
     margin-bottom: 20px;
-    margin-left: 30%;
+    margin-left: 27%;
 }
 
 #contactInfoTitle{
