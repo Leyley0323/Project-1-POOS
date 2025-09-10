@@ -29,7 +29,6 @@ body
     width: 70%;
     margin-left: 15%;
     padding: 25px;
-    background-color: #b2b2b2;
 }
 
 #accessUIDiv
@@ -38,7 +37,6 @@ body
     width: 70%;
     margin-left: 15%;
     padding: 25px;
-    background-color: #b2b2b2;
 }
 
 .buttons
@@ -48,7 +46,7 @@ body
     width: 50%;
     margin-left: 25%;
     font-family: 'Roboto', sans-serif;
-	box-shadow: 5px 5px 10px rgba(0, 3, 82, 0.6);
+    box-shadow: 5px 5px 10px rgba(0, 3, 82, 0.6);
 }
 
 .buttons:hover{
@@ -69,7 +67,7 @@ body
 {
 	font-size: 30px;
 }
-#colorText
+#contactText
 {
 	font-size: 30px;
 }
@@ -118,8 +116,8 @@ input[type="text"],input[type="password"]{
 }
 
 #logoutButton{
-    width: 20%;
-    margin-left: 40%;
+    width: 40%;
+    margin-left: 30%;
 }
 
 select{
@@ -130,11 +128,11 @@ select{
     font-family: 'Roboto', sans-serif;
 }
 
-#colorSearchResult{
+#contactSearchResult{
     display: none;
 }
 
-#colorAddResult{
+#contactAddResult{
     display: inline-block;
     font-size: 0.8em;
     width: 90%;
@@ -144,4 +142,31 @@ select{
     margin-bottom: 1%;
     font-family: 'Roboto', sans-serif;
     color: #95060a;
+}
+
+.slide-down {
+    max-height: 0;
+    min-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+    padding: 0;
+    border: none;
+    margin: 0;
+    opacity: 0;
+}
+.slide-down.show {
+    max-height: 500px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    margin: 10px 0;
+    opacity: 1;
+}
+        
+#toggleContactFormButton {
+    margin-bottom: 20px;
+    margin-left: 30%;
+}
+
+#contactInfoTitle{
+  font-size: 25px;
 }
