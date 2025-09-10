@@ -60,12 +60,12 @@
             <label for="lname"> Last Name:</label> <br>
             <input type="text" class="contact-input" id="lname" placeholder="Last Name" required /><br>
             <label for="phonenumber"> Phone Number:</label> <br>
-            <input type="number" class="contact-input" id="number" placeholder="XXX-XXX-XXXX" required /><br>
+            <input type="tel" class="contact-input" id="number" placeholder="XXX-XXX-XXXX" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required /><br>
             <label for="email"> Email:</label> <br>
-            <input type="email" class=contact-input" id="email" placeholder="name@gmail.com" required  /><br>
+            <input type="email" class="contact-input" id="email" placeholder="name@gmail.com" required  /><br>
             <label for="birthday">Birthday:</label> <br>
             <input type="date" id="birthday" class="contact-input" name="birthday"> <br>
-            <label for="date"> Contact Created </label>
+            <label for="date"> Contact Created:</label>
             <script>
               const now = new Date();
               document.getElementById('formatted-date').textContent = now.toLocaleDateString();
