@@ -108,7 +108,7 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-function addColor()
+function addContact()
 {
 	let newColor = document.getElementById("colorText").value;
 	document.getElementById("colorAddResult").innerHTML = "";
@@ -139,7 +139,7 @@ function addColor()
 	
 }
 
-function searchColor()
+function searchContact()
 {
 	let srch = document.getElementById("searchText").value;
 	document.getElementById("colorSearchResult").innerHTML = "";
