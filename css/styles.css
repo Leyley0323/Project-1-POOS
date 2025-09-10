@@ -178,7 +178,7 @@ select{
     opacity: 0;
 }
 .slide-down.show {
-    max-height: 600px;
+    max-height: 700px;
     padding: 10px;
     border: 1px solid #ccc;
     margin: 10px 0;
