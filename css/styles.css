@@ -55,6 +55,11 @@ body
     background-color: #8080804f;
     color: #FFFFFF;
     opacity: 50%;
+	transform: translateY(-3px); /*moves up 3px*/
+}
+
+.buttons:active{
+  transform: translate(-1px); /*pressing animation when button is pressed*/
 }
 
 #loginName
