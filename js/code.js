@@ -18,7 +18,9 @@ function doLogin()
 	// Get username and password from HTML form inputs
 	let login = document.getElementById("loginName").value;
 	let password = document.getElementById("loginPassword").value;
+
 //	var hash = md5( password );  // Password hashing is commented out
+
 	
 	// Clear any previous error messages
 	document.getElementById("loginResult").innerHTML = "";
@@ -26,8 +28,10 @@ function doLogin()
 	// Create JSON object to send to PHP script
 	// This matches the format Login.php expects: {"login":"username","password":"pass"}
 	let tmp = {login:login,password:password};
+
 //	var tmp = {login:login,password:hash};  // Alternative with hashed password
 	let jsonPayload = JSON.stringify( tmp );  // Convert to JSON string
+
 	
 	// Build URL to Login.php: http://cop4331-group2.me/LAMPAPI/Login.php
 	let url = urlBase + '/Login.' + extension;
@@ -65,7 +69,9 @@ function doLogin()
 				saveCookie();
 	
 				// Redirect to main application page
-				window.location.href = "color.html";
+			
+				window.location.href = "contacts.html";
+
 			}
 		};
 		// Send the JSON data to Login.php
@@ -125,7 +131,9 @@ function readCookie()
 	else
 	{
 		// User is logged in - could display welcome message here
-//		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+
+		document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+
 	}
 }
 
@@ -144,20 +152,25 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-// ADD COLOR FUNCTION - connects to AddColor.php
-function addColor()
+function addContact()
 {
-	// Get new color from HTML input field
-	let newColor = document.getElementById("colorText").value;
-	document.getElementById("colorAddResult").innerHTML = "";  // Clear previous messages
+	let firstName = document.getElementById("fname").value;
+	let lastName = document.getElementById("lname").value;
+	let phoneNumber = document.getElementById("number").value;
+	let email = document.getElementById("email").value;
+	
+	document.getElementById("contactAddResult").innerHTML = "";
 
-	// Create JSON object matching what AddColor.php expects
-	// AddColor.php expects: {"color":"red","userId":"123"}
-	let tmp = {color:newColor,userId,userId};  // Note: there's a typo here - should be {color:newColor,userId:userId}
+	let tmp = {
+		firstName: firstName,
+		lastName: lastName, 
+		phoneNumber: phoneNumber,
+		email: email,
+		userId: userId
+	};
 	let jsonPayload = JSON.stringify( tmp );
 
-	// Build URL to AddColor.php
-	let url = urlBase + '/AddColor.' + extension;
+	let url = urlBase + '/AddContact.' + extension;
 	
 	// Create AJAX request to send data to AddColor.php
 	let xhr = new XMLHttpRequest();
@@ -169,8 +182,12 @@ function addColor()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				// AddColor.php returns {"error":""} on success or {"error":"message"} on failure
-				document.getElementById("colorAddResult").innerHTML = "Color has been added";
+				document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+				document.getElementById("fname").value = "";
+				document.getElementById("lname").value = "";
+				document.getElementById("number").value = "";
+				document.getElementById("email").value = "";
+
 			}
 		};
 		// Send color data to PHP script
@@ -178,25 +195,28 @@ function addColor()
 	}
 	catch(err)
 	{
-		document.getElementById("colorAddResult").innerHTML = err.message;
+		document.getElementById("contactAddResult").innerHTML = err.message;
 	}
 }
 
-// SEARCH COLOR FUNCTION - connects to SearchColors.php
-function searchColor()
+
+
+function searchContact()
 {
 	// Get search term from HTML input
 	let srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
-	
-	let colorList = "";  // Will hold formatted results
+	document.getElementById("contactSearchResult").innerHTML = "";
+
+	let contactList = "";
+
 
 	// Create JSON for SearchColors.php
 	let tmp = {search:srch,userId:userId};
 	let jsonPayload = JSON.stringify( tmp );
 
-	// Build URL to SearchColors.php
-	let url = urlBase + '/SearchColors.' + extension;
+
+	let url = urlBase + '/SearchContacts.' + extension;
+
 	
 	// Create AJAX request
 	let xhr = new XMLHttpRequest();
@@ -208,10 +228,9 @@ function searchColor()
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-				
-				// Parse JSON response from SearchColors.php
-				// Expected format: {"results":["red","blue","green"],"error":""}
+
+				document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
+
 				let jsonObject = JSON.parse( xhr.responseText );
 				
 				// Loop through results array and format for display
@@ -224,8 +243,10 @@ function searchColor()
 					}
 				}
 				
-				// Display formatted color list in first paragraph element
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
+
+				// Display formatted contact list in first paragraph element
+		
+				document.getElementsByTagName("p")[0].innerHTML = contactList;
 			}
 		};
 		// Send search request to PHP
@@ -233,6 +254,6 @@ function searchColor()
 	}
 	catch(err)
 	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
+		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 }

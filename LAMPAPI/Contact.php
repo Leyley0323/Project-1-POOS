@@ -1,3 +1,4 @@
+
 <?php
 // Start PHP script - this file handles adding new contacts to the database
 
@@ -85,5 +86,6 @@ function returnWithInfo($message)
     // Send this JSON back to JavaScript
     sendResultInfoAsJson($retValue);
 }
+
 
 ?>

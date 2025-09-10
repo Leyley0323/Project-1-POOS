@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script type="text/javascript" src="js/code.js"></script>
+    <script type="text/javascript" src="js/md5.js"></script>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+   
+     <script type="text/javascript">
+     document.addEventListener('DOMContentLoaded', function() 
+      {
+      	readCookie();
+      	loadContacts();
+    	}, false);
+    	
+    	//slide down function
+    	function toggleContactForm() {
+            const form = document.getElementById('contactFormFieldset');
+            const button = document.getElementById('toggleContactFormButton');
+            
+            form.classList.toggle('show');
+            
+            // Update button text based on state
+            if (form.classList.contains('show')) {
+                button.textContent = 'Hide Contact Form';
+            } else {
+                button.textContent = 'Add New Contact';
+            }
+        }
+  	</script>
+  	
+  </head>
+  
+  <body>
+      <div id="accessUIDiv">
+      	<br />
+      	<form> 
+        	<input type="text" id="searchText" placeholder="Search Contacts"/>
+        	<button type="button" id="searchContactButton" class="buttons" onclick="searchContact();"> Search Contacts </button><br />
+        	<span id="contactSearchResult"></span>
+        	<p id="contactList">
+        	</p><br /><br />
+      	</form>
+      </div>
+      
+      
+      <button type="button" id="toggleContactFormButton" class="buttons" onclick="toggleContactForm();">Add New Contact</button>
+      <div class="addContacts">
+        <form>
+          <fieldset id="contactFormFieldset" class="slide-down">
+            <legend id="contactInfoTitle">Insert Contact Information:</legend>
+            <label for="fname"> First Name:</label> <br>
+            <input type="text" class="input" id="fname" placeholder="First Name" required /><br>
+            <label for="lname"> Last Name:</label> <br>
+            <input type="text" class="input" id="lname" placeholder="Last Name" required /><br>
+            <label for="number"> Phone Number:</label> <br>
+            <input type="tel" class="input" id="number" placeholder="XXX-XXX-XXXX" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required /><br>
+            <label for="email"> Email:</label> <br>
+            <input type="email" class="input" id="email" placeholder="name@gmail.com" required  /><br>
+            <label for="birthday">Birthday:</label> <br>
+            <input type="date" id="birthday" class="input" name="birthday"> <br>
+            <label for="date"> Contact Created:</label>
+            <script>
+              const now = new Date();
+              document.getElementById('formatted-date').textContent = now.toLocaleDateString();
+            </script>
+            <br>
+            <button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button> <br><br />
+        	  <input type="reset" id="resetButton" class="buttons" value="Reset">
+        	  <span id="contactAddResult"></span>
+      	  </fieldset>
+        </form>
+      </div>
+      
+      <div id="loggedInDiv">
+    	<span id="userName"></span><br />
+    	<button type="button" id="logoutButton" class="buttons" onclick="doLogout();"> Log Out </button>
+    </div>
+    
+  </body>
+</html>

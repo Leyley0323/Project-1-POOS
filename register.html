@@ -7,7 +7,7 @@
     <title>Get Started With Your Account</title>
     <script type="text/javascript" src="js/code.js"></script>
     <script type="text/javascript" src="js/md5.js"></script>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -15,14 +15,20 @@
   
   <body>
       <h1 class="title">Get Started With Your Account </h1>
-      <span class="inner-title">Our contact manager helps you keep all your important connections in one place.
+      <span class="register-title" >Our contact manager helps you keep all your important connections in one place.
       Create an account to start adding, organizing, and updating your contacts anytime.</span> <br>
-      <form class="input-login">
-        <input type="text" class="input" id="firstName" placeholder="First Name" /><br>
-        <input type="text" class="input" id="lastName" placeholder="Last Name" /><br>
-        <input type="text" class="input" id="username" placeholder="Username" /><br>
-      	<input type="password" class="input" id="password" placeholder="Password"/><br>
+      <form class="input-login" action="contacts.html">
+        <input type="text" class="input" id="firstName" placeholder="First Name" required /><br>
+        <input type="text" class="input" id="lastName" placeholder="Last Name" required /><br>
+        <input type="text" class="input" id="username" placeholder="Username" required /><br>
+      	<input type="password" class="input" id="password" placeholder="Password" required /><br>
       	<button type="button" id="signupButton" class="buttons" onclick="doSignUp();"> Sign Up </button>
       </form>
+      <br> 
+      <br>
+      <span class="register-title" >Already Have An Account?</span>
+      <a href="index.html">
+        <button type="button" class="buttons" onclick="doLogin();">Login</button>
+      </a>
   </body>
 </html>
