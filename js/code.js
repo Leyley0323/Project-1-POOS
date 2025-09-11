@@ -236,10 +236,10 @@ function searchContact()
 				// Loop through results array and format for display
 				for( let i=0; i<jsonObject.results.length; i++ )
 				{
-					colorList += jsonObject.results[i];  // Add color name
+					contactList += jsonObject.results[i];  // Add contact name
 					if( i < jsonObject.results.length - 1 )
 					{
-						colorList += "<br />\r\n";  // Add line break between colors
+						contactList += "<br />\r\n";  // Add line break between contacts
 					}
 				}
 				
