@@ -257,3 +257,64 @@ function searchContact()
 		document.getElementById("contactSearchResult").innerHTML = err.message;
 	}
 }
+
+function doSignUp()
+{
+    let firstName = document.getElementById("firstName").value;
+    let lastName = document.getElementById("lastName").value;
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+    
+    // Clear any previous results
+    document.getElementById("signupResult").innerHTML = "";
+    
+    // Basic validation
+    if (!firstName || !lastName || !username || !password) {
+        document.getElementById("signupResult").innerHTML = "All fields are required";
+        return;
+    }
+    
+    let tmp = {
+        firstName: firstName,
+        lastName: lastName,
+        login: username,
+        password: password
+    };
+    let jsonPayload = JSON.stringify(tmp);
+    
+    let url = urlBase + '/Register.' + extension;
+    
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    
+    try
+    {
+        xhr.onreadystatechange = function() 
+        {
+            if (this.readyState == 4 && this.status == 200) 
+            {
+                let jsonObject = JSON.parse(xhr.responseText);
+                
+                if (jsonObject.error && jsonObject.error !== "") 
+                {
+                    document.getElementById("signupResult").innerHTML = jsonObject.error;
+                    return;
+                }
+                
+                // Registration successful
+                document.getElementById("signupResult").innerHTML = "Account created successfully! Redirecting to login...";
+                
+                // Redirect to login page after a short delay
+                setTimeout(function() {
+                    window.location.href = "index.html";
+                }, 2000);
+            }
+        };
+        xhr.send(jsonPayload);
+    }
+    catch(err)
+    {
+        document.getElementById("signupResult").innerHTML = err.message;
+    }
+}
