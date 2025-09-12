@@ -82,6 +82,9 @@ body
 #signupResult
 {
     font-size: 20px;
+	text-align: center;
+	font-family: 'Roboto', sans-serif;
+	color: #000352;
 }
 
 .input
