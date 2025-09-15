@@ -39,16 +39,29 @@
   
   <body>
       <div id="accessUIDiv">
-      	<br />
-      	<form> 
-        	<input type="text" id="searchText" placeholder="Search Contacts"/>
-        	<button type="button" id="searchContactButton" class="buttons" onclick="searchContact();"> Search Contacts </button><br />
-        	<span id="contactSearchResult"></span>
-        	<p id="contactList">
-        	</p><br /><br />
-      	</form>
-      </div>
-      
+        <br />
+        <!-- Contacts Box -->
+        <div id="contactsDisplayContainer">
+            <h3>Your Contacts</h3>
+            <div id="contactsScrollBox">
+                <div id="contactsList">
+                    <!-- load contacts here -->
+                    <p>Loading Contacts...</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Search -->
+        <form> 
+            <input type="text" id="searchText" placeholder="Search Contacts"/>
+            <button type="button" id="searchContactButton" class="buttons" onclick="searchContact();"> Search Contacts </button><br />
+            <span id="contactSearchResult"></span>
+            <div id="searchResults">
+                <!-- Search results  -->
+            </div>
+        </form>
+    </div>
+          
       
       <button type="button" id="toggleContactFormButton" class="buttons" onclick="toggleContactForm();">Add New Contact</button>
       <div class="addContacts">
@@ -63,6 +76,7 @@
             <input type="tel" class="input" id="number" placeholder="XXX-XXX-XXXX" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required /><br>
             <label for="email"> Email:</label> <br>
             <input type="email" class="input" id="email" placeholder="name@gmail.com" required  /><br>
+            
             <label for="date"> Contact Created:</label>
             <script>
               const now = new Date();
