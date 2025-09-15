@@ -46,7 +46,7 @@
             <div id="contactsScrollBox">
                 <div id="contactsList">
                     <!-- load contacts here -->
-                    <p>Loading Contacts...</p>
+                   
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
         </form>
     </div>
           
-      
+      <br> <br> <br> <br>
       <button type="button" id="toggleContactFormButton" class="buttons" onclick="toggleContactForm();">Add New Contact</button>
       <div class="addContacts">
         <form>
@@ -78,11 +78,17 @@
             <input type="email" class="input" id="email" placeholder="name@gmail.com" required  /><br>
             
             <label for="date"> Contact Created:</label>
+            <span id="formattedDate"></span>
+            <input type="hidden" name="date" id="date">
+
             <script>
               const now = new Date();
-              document.getElementById('formatted-date').textContent = now.toLocaleDateString();
+              const formatted = now.toLocaleDateString();
+              document.getElementById('formattedDate').textContent = formatted;
+              document.getElementById('date').value = formatted;
             </script>
-            <br>
+
+            <br> <br>
             <button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button> <br><br />
         	  <input type="reset" id="resetButton" class="buttons" value="Reset">
         	  <span id="contactAddResult"></span>
