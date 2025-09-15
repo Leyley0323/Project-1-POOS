@@ -41,6 +41,21 @@ body
     padding: 25px;
 }
 
+#contactsDisplayContainer
+{
+    margin: 20px auto;
+    width: 80%;
+    text-align: center;
+}
+
+#contactsDisplayContainer h3 
+{
+    font-family: 'Roboto', sans-serif;
+    color: #000352;
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
 .buttons
 {
     font-size: 30px;
@@ -178,7 +193,7 @@ select{
     margin-top: 2%;
     margin-bottom: 1%;
     font-family: 'Roboto', sans-serif;
-   color: #D2691E;
+    color: #D2691E;
 }
 
 .slide-down {
