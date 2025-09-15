@@ -14,22 +14,26 @@
   </head>
   
   <body>
-      <h1 class="title"> Contact Manager </h1>
+      <h1 class="title"> Welcome to Your Personal Contact Manager </h1>
+      <span class="register-title" >Stay organized and never lose touch again. 
+        Our contact manager helps you keep all your important connections in one secure, easy to access place.</span> <br>
       <!-- Login -->
-      <form class="input-login">
-        	<span class="inner-title">Please Log In</span> <br>
-        	<input type="text" class="input" id="loginName" placeholder="Username" required /><br>
-        	<input type="password" class="input" id="loginPassword" placeholder="Password" required/><br>
-        	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Login </button>
-        	<span id="loginResult"></span>
-      
-       <!-- Registration -->
-        <div id="register">
-          <span class="inner-title">Don't have an account? </span> <br>
-          <a href="register.html">
-          <button type="button" class="buttons"> Create Account </button>
-          </a>
-        </div>
-       </form>
+      <fieldset class="loginFieldset">
+        <form class="input-login">
+            <span class="inner-title">Sign in to continue</span> <br>
+            <input type="text" class="input" id="loginName" placeholder="Username" required /><br>
+            <input type="password" class="input" id="loginPassword" placeholder="Password" required/><br>
+            <button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Login </button>
+            <span id="loginResult"></span>
+        
+        <!-- Registration -->
+          <div id="register"> 
+            <span class="inner-title">Don't have an account? </span> <br>
+            <a href="register.html">
+            <button type="button" class="buttons"> Create Account </button>
+            </a>
+          </div>
+        </form>
+       </fieldset>
   </body>
 </html>
