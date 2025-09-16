@@ -17,6 +17,16 @@ body
     color: #000352;
 }
 
+#contactHeader
+{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    color: #000352;
+    font-size: 28px;
+    /*margin: 20px auto;
+    width: 80%;*/
+}
+
 .input-login
 {
     font-size: 30px;
