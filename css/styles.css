@@ -11,7 +11,7 @@ body
 {
     font-size: 40px;
     width: 100%;
-    margin: 2% 5%;
+    margin: 0 auto;
     text-align: center;
     font-family: 'Roboto', sans-serif;
     color: #000352;
@@ -21,7 +21,7 @@ body
 {
     font-size: 30px;
     width: 70%;
-    margin-left: 15%;
+    margin: 0 auto;
     padding: 25px;
 }
 
@@ -148,8 +148,8 @@ input[type="text"],input[type="password"],input[type="tel"],input[type="email"],
     font-size: 1.5em;
     width: 90%;
     text-align: center;
-    margin-left: 7%;
-    margin-bottom: 4%;
+    margin-left: 5%;
+    margin-bottom: 2%;
     font-family: 'Roboto', sans-serif;
     color: #000352;
 }
@@ -220,7 +220,7 @@ select{
     border-radius: 15px;
     margin: 10px 0;
     opacity: 1;
-    box-shadow: 5px 10px 15px rgba(0, 3, 82, 0.6);
+    /*box-shadow: 5px 10px 15px rgba(0, 3, 82, 0.6); */
 
 }
         
@@ -238,7 +238,7 @@ select{
     font-size: 20px;
 }
 
-.loginFieldset
+/*.loginFieldset
 {
     background-color: rgba(0, 0, 0, 0.1);
     border: 3px solid #f2efef;
@@ -255,4 +255,4 @@ select{
     width: 90%;
     max-width: 950px;
     margin: 40px auto;
-}
+}*/
