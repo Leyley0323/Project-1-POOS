@@ -26,15 +26,6 @@
   <body>
       <div id="accessUIDiv">
         <br />
-        <!-- Contacts Box -->
-        <div id="contactsDisplayContainer" class="container-narrow">
-          <h3>Your Contacts</h3>
-          <div id="contactsScrollBox">
-            <div id="contactsList"><!-- injected --></div>
-          </div>
-        </div>
-        <br>
-        
         <!-- Search -->
         <form> 
             <input type="text" id="searchText" placeholder="Search Contacts"/>
@@ -44,6 +35,15 @@
                 <!-- Search results  -->
             </div>
         </form>
+        <!-- Contacts Box -->
+        <div id="contactsDisplayContainer" class="container-narrow">
+          <h3>Your Contacts</h3>
+          <div id="contactsScrollBox">
+            <div id="contactsList"><!-- injected --></div>
+          </div>
+        </div>
+        <br>
+        
         
         <span id="displayContacts"></span> 
     </div>
@@ -67,17 +67,7 @@
             <label for="email"> Email:</label> <br>
             <input type="email" class="input" id="email" placeholder="name@gmail.com" required  /><br>
             
-            <!-- <label for="date"> Contact Created:</label>
-            <span id="formattedDate"></span>
-            <input type="hidden" name="date" id="date"> -->
             <input type="hidden" id="contactId" />
-
-            <!-- <script>
-              const now = new Date();
-              const formatted = now.toLocaleDateString();
-              document.getElementById('formattedDate').textContent = formatted;
-              document.getElementById('date').value = formatted;
-            </script> -->
 
             <br> <br>
             <button type="button" id="addContactButton" class="buttons" onclick="addContact();"> Add Contact </button> <br><br />
