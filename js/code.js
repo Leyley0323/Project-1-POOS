@@ -126,7 +126,6 @@ function renderContacts(list) {
             Edit
           </button>
 
-
           <button class="buttons small danger" ${safeId ? `data-delete-id="${safeId}"` : "disabled"}>
             Delete
           </button>
