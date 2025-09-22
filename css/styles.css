@@ -1,249 +1,367 @@
-body 
-{
-    background-image: linear-gradient(to bottom, #E5F3FD, #46A2DA);
-    background-attachment: fixed; 
-    min-height: 100vh;
-    padding: 25px;
-    font-family: 'Roboto', sans-serif;
-}
-
-.title 
-{
-    font-size: 40px;
-    width: 100%;
-    margin: 0 auto;
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-    color: #000352;
-}
-
-#contactHeader
-{
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-    color: #000352;
-    font-size: 28px;
-    /*margin: 20px auto;
-    width: 80%;*/
-}
-
-.input-login
-{
-    font-size: 30px;
-    width: 70%;
-    margin: 0 auto;
-    padding: 25px;
-}
-
-#loggedInDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-}
-
-#accessUIDiv
-{
-    font-size: 30px;
-    width: 70%;
-    margin-left: 15%;
-    padding: 25px;
-}
-
-#contactsDisplayContainer
-{
-    margin: 20px auto;
-    width: 80%;
-    text-align: center;
-}
-
-#contactsDisplayContainer h3 
-{
-    font-family: 'Roboto', sans-serif;
-    color: #000352;
-    font-size: 28px;
-    margin-bottom: 15px;
-}
-
-label
-{
-    font-size: 20px;
-}
-
-.buttons
-{
-    font-size: 30px;
-    border-radius: 25px;
-    width: 50%;
-    margin-left: 25%;
-    font-family: 'Roboto', sans-serif;
-    box-shadow: 5px 5px 10px rgba(0, 3, 82, 0.6);
-}
-
-.buttons:hover{
-    background-color: #8080804f;
-    color: #FFFFFF;
-    opacity: 50%;
-	transform: translateY(-3px); /*moves up 3px*/
-}
-
-.buttons:active{
-  transform: translate(-1px); /*pressing animation when button is pressed*/
-}
-
-#loginName
-{
-	font-size: 30px;
-}
-#loginPassword
-{
-	font-size: 30px;
-}
-#searchText
-{
-	font-size: 30px;
-}
-#contactText
-{
-	font-size: 30px;
-}
-
-#signupResult
-{
-    font-size: 20px;
-	text-align: center;
-	font-family: 'Roboto', sans-serif;
-	color: #D2691E;
-	display: inline-block;
-}
-
-.input
-{
-  font-size: 30px;
-}
-
-.contact-input
-{
-  font-size: 30px;
-  border-radius: 25px;
-  width: 70%;
-  margin-left: 15%;
-  text-align: center;
+/* ===== Base ============================================================= */
+body{
+  background-image: linear-gradient(to bottom, #E5F3FD, #46A2DA);
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 25px;
   font-family: 'Roboto', sans-serif;
+  color: #0b1b3a;
 }
 
-input[type="text"],input[type="password"],input[type="tel"],input[type="email"],input[type="date"]{
-    border-radius: 25px;
-    text-align: center;
-    width: 80%;
-    margin-left: 10%;
-    margin-bottom: 2%;
-    font-family: 'Roboto', sans-serif;
+.title{
+  font-size: 40px;
+  text-align: center;
+  color: #000352;
+}
+
+#contactHeader{
+  text-align: center;
+  color: #000352;
+  font-size: 28px;
+}
+
+
+/* ===== Inputs =========================================================== */
+/* Make inputs fill the section width and remove legacy left offsets */
+input[type="text"],
+input[type="password"],
+input[type="tel"],
+input[type="email"],
+input[type="date"]{
+  border-radius: 25px;
+  text-align: center;
+  width: 100%;
+  margin: 0 0 12px 0;
+  padding: 10px 14px;
+  font-size: 20px;
+  box-sizing: border-box;
+}
+
+/* Big login/search text sizes where you used IDs */
+#loginName, #loginPassword, #searchText, #contactText{ font-size: 30px; }
+
+/* ===== Buttons ========================================================== */
+/* Unified pill button */
+.buttons, button{
+  display: block;
+  width: 360px;
+  margin: 12px auto;
+  font-size: 22px;
+  font-weight: 700;
+  border-radius: 25px;
+  font-family: inherit;
+  box-shadow: 5px 5px 10px rgba(0, 3, 82, 0.6);
+  position: static;               /* kill old relative/left pushes */
+}
+
+.buttons:hover, button:hover{
+  background-color: #8080804f;
+  color: #FFFFFF;
+  opacity: .9;
+  transform: translateY(-3px);
+}
+.buttons:active, button:active{
+  transform: translateY(-1px);
+}
+
+/* Small inline action buttons (Edit/Delete) */
+.buttons.small{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  margin: 0;
+  padding: 6px 14px;
+  font-size: 16px;
+  box-shadow: none;
+}
+.buttons.danger{ background:#ffe9e9; border-color:#e57373; }
+
+/* Explicit IDs (kept for clarity; now centered by default) */
+#toggleContactFormButton,
+#searchButton,
+#logoutButton{ width: 360px; }
+
+/* Username line */
+#userName{ display:block; width:100%; text-align:center; }
+
+/* ===== Contacts list ==================================================== */
+#contactsDisplayContainer{ text-align: left; }
+#contactsDisplayContainer h3{
+  color:#000352;
+  font-size: 28px;
+  margin: 0 0 15px 0;
+}
+
+#contactsList{
+  display: grid;
+  gap: 16px;
+}
+
+.contact-row, .contact-card{
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.contact-name{
+  font-size: 22px;
+  font-weight: 800;
+  text-align: center;
+}
+.contact-meta{
+  font-size: 16px;
+  opacity: .85;
+  text-align: center;
+  margin-top: 2px;
+}
+.contact-actions{
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+/* ===== Slide-down form ================================================== */
+.slide-down{
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .4s ease-in-out, opacity .2s ease-in-out;
+  padding: 0;
+  border: none;
+  margin: 0;
+  opacity: 0;
+}
+.slide-down.show{
+  max-height: 1000px;
+  opacity: 1;
+  padding: 16px;
+  border: 3px solid #e9eef5;
+  border-radius: 16px;
+  background-color: rgba(255,255,255,0.6);
+}
+
+/* Titles & misc */
+#contactInfoTitle{ font-size: 25px; }
+#formattedDate{ font-size: 20px; }
+
+/* Hide raw search/add messages unless used by JS */
+#contactSearchResult{ display:none; }
+
+
+/* ===== Selects ========================================================== */
+select{
+  width: 50%;
+  margin: 12px auto 0 auto;
+  display:block;
+  font-size: 16px;
+  border-radius: 12px;
+  padding: 6px 10px;
+}
+
+
+
+
+
+
+/* ===== Base ============================================================= */
+body{
+  background-image: linear-gradient(to bottom, #E5F3FD, #46A2DA);
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 25px;
+  font-family: 'Roboto', sans-serif;
+  color: #0b1b3a;
+}
+
+.title{
+  font-size: 40px;
+  text-align: center;
+  color: #000352;
+}
+
+#contactHeader{
+  text-align: center;
+  color: #000352;
+  font-size: 28px;
+}
+
+/* Narrow page sections (centers content at a readable width) */
+.container-narrow,
+#accessUIDiv,
+#loggedInDiv,
+#contactsDisplayContainer,
+.addContacts{
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 25px 25px 0 25px;
+}
+
+/* Typography helpers */
+label{ font-size: 20px; }
+.inner-title,
+#loginResult,
+#signupResult{
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin: 10px 0;
+}
+.inner-title{ font-size: .95rem; color:#000352; }
+#loginResult, #signupResult{ color:#D2691E; }
+
+/* ===== Inputs =========================================================== */
+/* Make inputs fill the section width and remove legacy left offsets */
+input[type="text"],
+input[type="password"],
+input[type="tel"],
+input[type="email"],
+input[type="date"]{
+  border-radius: 25px;
+  text-align: center;
+  width: 100%;
+  margin: 0 0 12px 0;
+  padding: 10px 14px;
+  font-size: 20px;
+  box-sizing: border-box;
+}
+
+/* Big login/search text sizes where you used IDs */
+#loginName, #loginPassword, #searchText, #contactText{ font-size: 30px; }
+
+/* ===== Buttons ========================================================== */
+/* Unified pill button */
+.buttons, button{
+  display: block;
+  width: 360px;
+  margin: 12px auto;
+  font-size: 22px;
+  font-weight: 700;
+  border-radius: 25px;
+  font-family: inherit;
+  box-shadow: 5px 5px 10px rgba(0, 3, 82, 0.6);
+  position: static;               /* kill old relative/left pushes */
+}
+
+.buttons:hover, button:hover{
+  background-color: #8080804f;
+  color: #FFFFFF;
+  opacity: .9;
+  transform: translateY(-3px);
+}
+.buttons:active, button:active{
+  transform: translateY(-1px);
+}
+
+/* Small inline action buttons (Edit/Delete) */
+.buttons.small{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: auto;
+  margin: 0;
+  padding: 6px 14px;
+  font-size: 16px;
+  box-shadow: none;
+}
+.buttons.danger{ background:#ffe9e9; border-color:#e57373; }
+
+/* Explicit IDs (kept for clarity; now centered by default) */
+#toggleContactFormButton,
+#searchButton,
+#logoutButton{ width: 360px; }
+
+/* Username line */
+#userName{ display:block; width:100%; text-align:center; }
+
+/* ===== Contacts list ==================================================== */
+#contactsDisplayContainer{ text-align: left; }
+#contactsDisplayContainer h3{
+  color:#000352;
+  font-size: 28px;
+  margin: 0 0 15px 0;
+}
+
+#contactsList{
+  display: grid;
+  gap: 16px;
+}
+
+.contact-row, .contact-card{
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(0,0,0,0.15);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+.contact-name{
+  font-size: 22px;
+  font-weight: 800;
+  text-align: center;
+}
+.contact-meta{
+  font-size: 16px;
+  opacity: .85;
+  text-align: center;
+  margin-top: 2px;
+}
+.contact-actions{
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  margin-top: 10px;
+}
+
+/* ===== Slide-down form ================================================== */
+.slide-down{
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .4s ease-in-out, opacity .2s ease-in-out;
+  padding: 0;
+  border: none;
+  margin: 0;
+  opacity: 0;
+}
+.slide-down.show{
+  max-height: 1000px;
+  opacity: 1;
+  padding: 16px;
+  border: 3px solid #e9eef5;
+  border-radius: 16px;
+  background-color: rgba(255,255,255,0.6);
+}
+
+/* Titles & misc */
+#contactInfoTitle{ font-size: 25px; }
+#formattedDate{ font-size: 20px; }
+
+/* Hide raw search/add messages unless used by JS */
+#contactSearchResult{ display:none; }
+
+/* Status line under the form */
+#contactAddResult{
+  display: block;
+  text-align: center;
+  margin: 10px 0 4px 0;
+  color: #D2691E;
+  font-size: .95rem;
+}
+
+/* ===== Selects ========================================================== */
+select{
+  width: 50%;
+  margin: 12px auto 0 auto;
+  display:block;
+  font-size: 16px;
+  border-radius: 12px;
+  padding: 6px 10px;
 }
 
 .inner-title{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Roboto', sans-serif;
-    color: #000352;
-}
-
-.register-title{
-    display: inline-block;
-    font-size: 1.5em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Roboto', sans-serif;
-    color: #000352;
-}
-
-#loginResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-bottom: 2%;
-    font-family: 'Roboto', sans-serif;
-    color: #D2691E;
-}
-
-#userName{
-    display: inline-block;
-    width: 80%;
-    margin-left: 10%;
-    text-align: center;
-}
-
-#logoutButton{
-    width: 40%;
-    margin-left: 30%;
-}
-
-select{
-    width: 30%;
-    margin-left: 35%;
-    margin-top: 2%;
-    font-size: 0.75em;
-    font-family: 'Roboto', sans-serif;
-}
-
-#contactSearchResult{
-    display: none;
-}
-
-#contactAddResult{
-    display: inline-block;
-    font-size: 0.8em;
-    width: 90%;
-    text-align: center;
-    margin-left: 5%;
-    margin-top: 2%;
-    margin-bottom: 1%;
-    font-family: 'Roboto', sans-serif;
-    color: #D2691E;
-}
-
-.slide-down {
-    max-height: 0;
-    min-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-in-out;
-    padding: 0;
-    border: none;
-    margin: 0;
-    opacity: 0;
-}
-
-.slide-down.show {
-    max-height: 1000px;
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    border: 3px solid #f2efef;
-    border-radius: 15px;
-    margin: 10px 0;
-    opacity: 1;
-    /*box-shadow: 5px 10px 15px rgba(0, 3, 82, 0.6); */
-
-}
-        
-#toggleContactFormButton {
-    margin-bottom: 20px;
-    margin-left: 27%;
-}
-
-#contactInfoTitle{
-  font-size: 25px;
-}
-
-#formattedDate
-{
-    font-size: 20px;
+  font-size: clamp(1.0rem, 0.9rem + 0.9vw, 1.25rem); 
+  font-weight: 370;  
+  line-height: 1.15;
+  color: #2f4858;
 }
