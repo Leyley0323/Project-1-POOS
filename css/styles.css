@@ -247,22 +247,3 @@ select{
 {
     font-size: 20px;
 }
-
-/*.loginFieldset
-{
-    background-color: rgba(0, 0, 0, 0.1);
-    border: 3px solid #f2efef;
-    border-radius: 15px;
-    padding: 20px 10px;
-    box-shadow: 5px 10px 15px rgba(0, 3, 82, 0.6);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: left;
-   
-
-    width: 90%;
-    max-width: 950px;
-    margin: 40px auto;
-}*/
