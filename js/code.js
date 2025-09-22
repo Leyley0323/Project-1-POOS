@@ -117,14 +117,44 @@ function renderContacts(list) {
           <div class="contact-meta">${phone ? phone + " • " : ""}${email || ""}</div>
         </div>
         <div class="contact-actions">
-          <button class="buttons small" onclick='startEditContact(${JSON.stringify({ id: safeId, firstName: c.firstName, lastName: c.lastName, phoneNumber: phone, email: email })});'>Edit</button>
-          <button class="buttons small danger" ${safeId ? `onclick="deleteContact('${safeId}');"` : "disabled"}>Delete</button>
+          <button class="buttons small edit-btn"
+            data-id="${c.id ?? c.ID ?? c.Id ?? ''}"
+            data-first="${(c.firstName ?? c.FirstName ?? '').replace(/"/g,'&quot;')}"
+            data-last="${(c.lastName ?? c.LastName ?? '').replace(/"/g,'&quot;')}"
+            data-phone="${(c.phone ?? c.Phone ?? c.phoneNumber ?? '').replace(/"/g,'&quot;')}"
+            data-email="${(c.email ?? c.Email ?? '').replace(/"/g,'&quot;')}">
+            Edit
+          </button>
+
+
+          <button class="buttons small danger" ${safeId ? `data-delete-id="${safeId}"` : "disabled"}>
+            Delete
+          </button>
         </div>
       </div>
     `;
+
   }).join("");
 
   container.innerHTML = rows;
+  // Edit handlers
+  container.querySelectorAll(".edit-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      startEditContact({
+        id: btn.dataset.id || "",
+        firstName: btn.dataset.first || "",
+        lastName: btn.dataset.last || "",
+        phone: btn.dataset.phone || "",
+        email: btn.dataset.email || ""
+      });
+    });
+  });
+
+  // Delete handlers
+  container.querySelectorAll("[data-delete-id]").forEach(btn => {
+    btn.addEventListener("click", () => deleteContact(btn.getAttribute("data-delete-id")));
+  });
+
 }
 
 // Load all contacts for the user (empty search → all)
@@ -154,108 +184,108 @@ function loadContacts() {
 }
 
 // Add Contact (matches your Contact.php file name)
-function addContact()
-{
+function addContact() {
   const f = document.getElementById("fname")?.value?.trim() || "";
   const l = document.getElementById("lname")?.value?.trim() || "";
   const p = document.getElementById("number")?.value?.trim() || "";
   const e = document.getElementById("email")?.value?.trim() || "";
-
   const resEl = document.getElementById("contactAddResult");
   if (resEl) resEl.innerHTML = "";
 
-  // If we're in edit mode, call update instead
+  // if we're in edit mode, update instead
   const editingId = document.getElementById("contactId")?.value || "";
-  if (editingId) {
-    updateContact();
+  if (editingId) { updateContact(); return; }
+
+
+  // simple client validation (because button type="button" bypasses HTML5 pattern)
+  const phoneOk = /^[0-9]{3}-?[0-9]{3}-?[0-9]{4}$/.test(p);
+  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+  if (!f || !l || !phoneOk || !emailOk) {
+    resEl && (resEl.textContent = "Please enter valid first/last name, phone (###-###-####), and email.");
     return;
   }
 
-  const tmp = { firstName: f, lastName: l, phoneNumber: p, email: e, userId };
+  // *** use the keys Contact.php expects ***
+  const tmp = { userId, firstName: f, lastName: l, phone: p, email: e };
   const jsonPayload = JSON.stringify(tmp);
 
   const url = `${urlBase}/Contact.${extension}`;
-
   const xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  try {
-    xhr.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        if (resEl) resEl.innerHTML = "Contact has been added";
+  xhr.onreadystatechange = function () {
+    if (this.readyState === 4) {
+      if (this.status === 200) {
+        resEl && (resEl.textContent = "Contact has been added");
         document.getElementById("fname").value = "";
         document.getElementById("lname").value = "";
         document.getElementById("number").value = "";
         document.getElementById("email").value = "";
         loadContacts();
+      } else {
+        // show backend error to help debug
+        resEl && (resEl.textContent = `Add failed (${this.status}): ${xhr.responseText || "Server Error"}`);
       }
-    };
-    xhr.send(jsonPayload);
-  } catch (err) {
-    if (resEl) resEl.innerHTML = err.message;
-  }
+    }
+  };
+  xhr.send(jsonPayload);
 }
 
 // Start editing (prefill form & switch button label to "Update Contact")
-function startEditContact(contact)
-{
-  document.getElementById("contactId")?.setAttribute("value", contact.id || "");
-  document.getElementById("fname").value = contact.firstName || "";
-  document.getElementById("lname").value = contact.lastName || "";
-  document.getElementById("number").value = contact.phoneNumber || "";
-  document.getElementById("email").value = contact.email || "";
+function startEditContact(contact) {
+  // contact should include an id and fields (from your search results)
+  document.getElementById("contactId").value = contact.id || "";
+  document.getElementById("fname").value     = contact.firstName || "";
+  document.getElementById("lname").value     = contact.lastName  || "";
+  document.getElementById("number").value    = contact.phone     || "";   // <-- phone
+  document.getElementById("email").value     = contact.email     || "";
 
   const addBtn = document.getElementById("addContactButton");
   if (addBtn) addBtn.textContent = "Update Contact";
 
-  // ensure the form is visible if you use a slide-down
-  const fs = document.getElementById('contactFormFieldset');
-  const toggleBtn = document.getElementById('toggleContactFormButton');
-  if (fs && !fs.classList.contains('show')) {
-    fs.classList.add('show');
-    if (toggleBtn) toggleBtn.textContent = 'Hide Contact Form';
-  }
 }
 
+
 // Update Contact
-function updateContact()
-{
+function updateContact() {
   const id = document.getElementById("contactId")?.value || "";
-  const f = document.getElementById("fname")?.value?.trim() || "";
-  const l = document.getElementById("lname")?.value?.trim() || "";
-  const p = document.getElementById("number")?.value?.trim() || "";
-  const e = document.getElementById("email")?.value?.trim() || "";
+  const f  = document.getElementById("fname")?.value?.trim() || "";
+  const l  = document.getElementById("lname")?.value?.trim() || "";
+  const p  = document.getElementById("number")?.value?.trim() || "";
+  const e  = document.getElementById("email")?.value?.trim() || "";
 
-  const resEl = document.getElementById("contactAddResult");
-  if (resEl) resEl.innerHTML = "";
+  const out = document.getElementById("contactAddResult");
+  if (!id) { out && (out.textContent = "No contact selected for update."); return; }
 
-  if (!id) {
-    if (resEl) resEl.innerHTML = "No contact selected for update.";
-    return;
-  }
-
-  const tmp = { id, firstName: f, lastName: l, phoneNumber: p, email: e, userId };
-  const jsonPayload = JSON.stringify(tmp);
-
-  const url = `${urlBase}/UpdateContacts.${extension}`;
+  // match UpdateContacts.php: contactId + phone
+  const payload = JSON.stringify({
+    contactId: Number(id),
+    userId,
+    firstName: f,
+    lastName:  l,
+    phone:     p,
+    email:     e
+  });
 
   const xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
+  xhr.open("POST", `${urlBase}/UpdateContacts.${extension}`, true);
   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  try {
-    xhr.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        if (resEl) resEl.innerHTML = "Contact updated";
+  xhr.onreadystatechange = function () {
+    if (this.readyState === 4) {
+      if (this.status === 200) {
+        out && (out.textContent = "Contact updated");
         document.getElementById("contactId").value = "";
         document.getElementById("addContactButton").textContent = "Add Contact";
         loadContacts();
+      } else {
+        out && (out.textContent = `Update failed (${this.status}): ${this.responseText || "Server Error"}`);
       }
-    };
-    xhr.send(jsonPayload);
-  } catch (err) {
-    if (resEl) resEl.innerHTML = err.message;
-  }
+    }
+  };
+  xhr.send(payload);
 }
+
+
 
 // Delete Contact
 function deleteContact(id)
