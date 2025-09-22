@@ -216,11 +216,12 @@ function addContact() {
   xhr.onreadystatechange = function () {
     if (this.readyState === 4) {
       if (this.status === 200) {
-        resEl && (resEl.textContent = "Contact has been added");
         document.getElementById("fname").value = "";
         document.getElementById("lname").value = "";
         document.getElementById("number").value = "";
         document.getElementById("email").value = "";
+        resetFormState();
+        resEl && (resEl.textContent = "Contact has been added");
         loadContacts();
       } else {
         // show backend error to help debug
@@ -233,6 +234,19 @@ function addContact() {
 
 // Start editing (prefill form & switch button label to "Update Contact")
 function startEditContact(contact) {
+  (function openFormForEdit() {
+    const form = document.getElementById('contactFormFieldset');
+    const btn  = document.getElementById('toggleContactFormButton');
+    if (form && !form.classList.contains('show')) {
+      form.classList.add('show');           // same class your toggle adds
+      if (btn) btn.textContent = 'Hide Contact Form';
+    }
+    // focus & scroll
+    setTimeout(() => {
+      document.getElementById('fname')?.focus();
+      form?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 0);
+  })();
   // contact should include an id and fields (from your search results)
   document.getElementById("contactId").value = contact.id || "";
   document.getElementById("fname").value     = contact.firstName || "";
@@ -273,9 +287,10 @@ function updateContact() {
   xhr.onreadystatechange = function () {
     if (this.readyState === 4) {
       if (this.status === 200) {
-        out && (out.textContent = "Contact updated");
         document.getElementById("contactId").value = "";
         document.getElementById("addContactButton").textContent = "Add Contact";
+        resetFormState();
+        out && (out.textContent = "Contact updated");
         loadContacts();
       } else {
         out && (out.textContent = `Update failed (${this.status}): ${this.responseText || "Server Error"}`);
@@ -285,31 +300,80 @@ function updateContact() {
   xhr.send(payload);
 }
 
+// Clears inputs + exits edit mode + restores button/labels
+function resetFormState() {
+  ["fname", "lname", "number", "email"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+
+  const idEl = document.getElementById("contactId");
+  if (idEl) idEl.value = "";
+
+  const mainBtn = document.getElementById("addContactButton");
+  if (mainBtn) mainBtn.textContent = "Add Contact";
+
+  const msg = document.getElementById("contactAddResult");
+  if (msg) msg.textContent = "";
+}
+
+// Your toggle, upgraded to also clear when hiding and start clean when showing
+function toggleContactForm() {
+  const form   = document.getElementById("contactFormFieldset");
+  const button = document.getElementById("toggleContactFormButton");
+  if (!form || !button) return;
+
+  const willShow = !form.classList.contains("show");
+
+  if (willShow) {
+    // open the panel and start with a clean slate
+    form.classList.add("show");
+    button.textContent = "Hide Contact Form";
+    resetFormState();                         // blank form on open
+    setTimeout(() => document.getElementById("fname")?.focus(), 0);
+  } else {
+    // hide the panel and clear everything so it won't stick next time
+    form.classList.remove("show");
+    button.textContent = "Add New Contact";
+    resetFormState();                         // clear on hide
+  }
+}
 
 
 // Delete Contact
-function deleteContact(id)
-{
+function deleteContact(id) {
   if (!id) return;
+
+  if (!confirm("Delete this contact?")) return;
+
   const url = `${urlBase}/DeleteContacts.${extension}`;
-  const payload = JSON.stringify({ id, userId });
+  // most COP4331 endpoints expect 'contactId'
+  const payload = JSON.stringify({ contactId: Number(id), userId });
 
   const resEl = document.getElementById("contactSearchResult");
   const xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  try {
-    xhr.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
+  xhr.onreadystatechange = function () {
+    if (this.readyState === 4) {
+      if (this.status === 200) {
+        // if we were editing this one, exit edit-mode + clear form
+        const currentEditing = document.getElementById("contactId")?.value;
+        if (currentEditing && String(currentEditing) === String(id)) {
+          resetFormState();
+        }
         resEl && (resEl.innerHTML = "Contact deleted");
         loadContacts();
+      } else {
+        // surface backend error
+        const msg = this.responseText || "Server Error";
+        resEl && (resEl.innerHTML = `Delete failed (${this.status}): ${msg}`);
       }
-    };
-    xhr.send(payload);
-  } catch (err) {
-    resEl && (resEl.innerHTML = err.message);
-  }
+    }
+  };
+  xhr.send(payload);
 }
+
 
 // Search (renders into the same list box to keep UI consistent)
 function searchContact()
@@ -338,6 +402,7 @@ function searchContact()
     statusEl && (statusEl.innerHTML = err.message);
   }
 }
+
 
 // ================== SIGNUP ==================
 function doSignUp()
